@@ -1,1 +1,69 @@
+cp -r alx-project-0x08 alx-project-0x09
+cd alx-project-0x09
+
+touch .env.local
+
+# .env.local
+
+# WARNING: NEVER commit this file to a public Git repository. 
+# This key is only for client-side testing and must be removed 
+# and secured on the server-side in later tasks.
+NEXT_PUBLIC_GPT_API_KEY="API_KEY_GOES_HERE"
+
+// pages/index.tsx
+
+// ... (imports and state declarations remain the same)
+
+const Home: React.FC = () => {
+  // ... (state declarations)
+  // ...
+
+  const handleGenerateImage = async () => {
+    // 1. Log the key. This demonstrates that Next.js successfully loaded 
+    //    the variable into the client environment.
+    console.log("Generating Image");
+    console.log("API Key Value:", process.env.NEXT_PUBLIC_GPT_API_KEY);
+    
+    // (Rest of the previous simulation logic can be kept or removed for clarity)
+  };
+
+  // ... (return statement remains the same)
+};
+
+export default Home;
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Next.js Build Output
+/.next/
+/out/
+
+# Local Environment Variables (CRITICAL)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Verify the .gitignore file exists and contains the critical entry
+cat .gitignore
+
+Verification
+Save all files.
+
+Run the application: npm run dev -- -p 3000
+
+Open http://localhost:3000 in your browser.
+
+Open the Developer Tools console.
+
+Click the "Generate Image" button.
+
+You should see the output in the console:
+
+Generating Image
+API Key Value: API_KEY_GOES_HERE 
+Seeing API_KEY_GOES_HERE confirms that Next.js loaded the .env.local file correctly, and the variable is accessible in your component.
 
