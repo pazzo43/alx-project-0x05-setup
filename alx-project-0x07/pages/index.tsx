@@ -1,1 +1,145 @@
+npx create-next-app@latest alx-project-0x07 --typescript --tailwind --eslint
+cd alx-project-0x07
+
+mkdir -p components/layouts interfaces
+
+touch components/layouts/Header.tsx components/layouts/Footer.tsx components/layouts/Layout.tsx interfaces/index.ts
+
+// interfaces/index.ts
+import * as React from "react"
+
+export interface ReactComponentProps {
+    children: React.ReactNode
+}
+
+// components/layouts/Header.tsx
+import Link from 'next/link';
+import React from 'react';
+
+const Header: React.FC = () => {
+  return (
+    <header className="bg-gray-800 text-white py-4">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        <div className="flex items-center">
+          <h1 className="text-2xl font-bold">ImageGen</h1>
+        </div>
+        <nav className="space-x-4">
+          <Link href="/" className="hover:text-gray-400">Home</Link>
+          <Link href="/gallery" className="hover:text-gray-400">Gallery</Link>
+          <Link href="/about" className="hover:text-gray-400">About</Link>
+          <Link href="/contact" className="hover:text-gray-400">Contact</Link>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+export default Header;
+
+// components/layouts/Footer.tsx
+import Link from "next/link";
+import React from 'react';
+
+const Footer: React.FC = () => {
+  return (
+    <footer className="bg-gray-800 text-white py-6">
+      <div className="container mx-auto text-center px-4">
+        <h1 className="text-lg font-semibold">Image Generation App</h1>
+        <p className="mt-2 text-sm">© {new Date().getFullYear()}. All rights reserved.</p>
+        <div className="mt-4">
+          <Link href="#" className="text-gray-400 hover:text-white mx-2">Privacy Policy</Link>
+          <Link href="#" className="text-gray-400 hover:text-white mx-2">Terms of Service</Link>
+          <Link href="#" className="text-gray-400 hover:text-white mx-2">Contact Us</Link>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
+
+// components/layouts/Layout.tsx
+import { ReactComponentProps } from "@/interfaces";
+import Footer from "./Footer"
+import Header from "./Header"
+import React from "react"
+
+const Layout: React.FC<ReactComponentProps> = ({ children }) => {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow"> 
+        {children}
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+export default Layout;
+
+// pages/_app.tsx
+import Layout from "@/components/layouts/Layout";
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
+
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  )
+}
+
+// pages/index.tsx
+import React, { useState } from "react";
+
+
+const Home: React.FC = () => {
+  // Placeholder handler function
+  const handleGenerateImage = async () => {
+    console.log("Generating Images")
+  };
+
+  return (
+    <div className="flex flex-col items-center flex-grow bg-gray-100 p-4">
+      <div className="flex flex-col items-center py-12 w-full max-w-4xl">
+        <h1 className="text-4xl font-extrabold mb-3 text-gray-800">AI Image Generator</h1>
+        <p className="text-lg text-gray-600 mb-8">
+          Generate stunning images based on your text prompts using GPT-4!
+        </p>
+
+        <div className="w-full max-w-lg bg-white p-6 rounded-xl shadow-lg">
+          <input
+            type="text"
+            placeholder="Enter your prompt here, e.g., 'A cyberpunk cityscape at sunset'..."
+            className="w-full p-4 border border-gray-300 rounded-lg mb-4 focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+          />
+          <button
+            onClick={handleGenerateImage}
+            className="w-full p-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300 shadow-md"
+          >
+            Generate Image
+          </button>
+        </div>
+        
+        {/* Placeholder for the image output/gallery will go here */}
+        <div className="mt-8 w-full max-w-lg text-center text-gray-500">
+            {/* Image gallery/output will appear here in later tasks */}
+            No images generated yet.
+        </div>
+
+      </div>
+     </div>
+  );
+};
+
+export default Home;
+
+
+npm run dev -- -p 3000
+
+now see the basic application layout running at http://localhost:3000, with the Header, Footer, and the main Image Generation Form visible.
+
+
 
